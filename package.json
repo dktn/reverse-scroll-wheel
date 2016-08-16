@@ -1,0 +1,19 @@
+{
+  "name": "reverse-scroll-wheel",
+  "main": "./lib/reverse-scroll-wheel",
+  "version": "0.1.0",
+  "description": "Reverse scroll wheel for editors",
+  "keywords": [
+  ],
+  "activationCommands": {
+    "atom-workspace": "reverse-scroll-wheel:toggle"
+  },
+  "repository": "https://github.com/dktn/reverse-scroll-wheel",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "dependencies": {
+    "atom-space-pen-views": "^2.0.3"
+  }
+}
