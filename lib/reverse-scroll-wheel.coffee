@@ -3,19 +3,34 @@
 
 module.exports = ReverseScrollWheel =
   subscriptions: null
-  active: true
+  active: false
+  pluginName: 'Reverse Scroll Wheel'
 
   activate: (state) ->
     @subscriptions = new CompositeDisposable
-    @addReverseScrollWheel()
     @addToggle()
 
+  deactivate: ->
+    @subscriptions.dispose()
+
+  serialize: ->
+
+  toggle: ->
+    @active = !@active
+    if @active
+        @addReverseScrollWheel()
+        atom.notifications.addInfo(@pluginName + ' activated')
+    else
+        @removeReverseScrollWheel()
+        @subscriptions.dispose()
+        @subscriptions = new CompositeDisposable
+        @addToggle()
+        atom.notifications.addInfo(@pluginName + ' deactivated')
+
   addToggle: ->
-    console.log 'ReverseScrollWheel addToggle'
     @subscriptions.add atom.commands.add 'atom-workspace', 'reverse-scroll-wheel:toggle': => @toggle()
 
   addReverseScrollWheel: ->
-    console.log 'ReverseScrollWheel addReverseScrollWheel'
     @subscriptions.add atom.workspace.observeTextEditors (editor) ->
       editorView = atom.views.getView(editor)
       $(editorView).on 'mousewheel', (event) ->
@@ -27,24 +42,7 @@ module.exports = ReverseScrollWheel =
         false
 
   removeReverseScrollWheel: ->
-    console.log 'ReverseScrollWheel removeReverseScrollWheel'
     editors = atom.workspace.getTextEditors()
     editors.forEach (editor) =>
       editorView = atom.views.getView(editor)
       $(editorView).off 'mousewheel'
-
-  deactivate: ->
-    @subscriptions.dispose()
-
-  serialize: ->
-
-  toggle: ->
-    @active = !@active
-    if @active
-        console.log 'ReverseScrollWheel activated'
-        @addReverseScrollWheel()
-    else
-        console.log 'ReverseScrollWheel deactivated'
-        @removeReverseScrollWheel()
-        @subscriptions.dispose()
-        @addToggle()
