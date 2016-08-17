@@ -1,13 +1,12 @@
 {
   "name": "reverse-scroll-wheel",
   "main": "./lib/reverse-scroll-wheel",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Reverse scroll wheel for editors",
   "author": {
     "name": "Adam Szlachta"
   },
-  "keywords": [
-  ],
+  "keywords": [],
   "activationCommands": {
     "atom-workspace": "reverse-scroll-wheel:toggle"
   },
