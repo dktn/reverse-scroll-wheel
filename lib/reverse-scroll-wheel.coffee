@@ -6,9 +6,7 @@ module.exports =
   subscriptions: null
   active: false
   pluginName: 'Reverse Scroll Wheel'
-
-  packageName: 'reverse-scroll-wheel'
-  activateEntry: @packageName + '.general.active'
+  activateEntry: 'reverse-scroll-wheel.general.active'
 
   config:
     general:
@@ -20,28 +18,30 @@ module.exports =
           type: 'boolean'
           default: true
 
-  setActive: (active) ->
+  setActive: (active, notify = true) ->
     @active = active
     console.log "Activating ", @pluginName, " to ", @active
+    atom.config.set @activateEntry, @active
     if active
       @addReverseScrollWheel()
-      atom.notifications.addInfo(@pluginName + ' activated')
+      if notify
+          atom.notifications.addInfo(@pluginName + ' activated')
     else
       @removeReverseScrollWheel()
       @subscriptions.dispose()
       @subscriptions = new CompositeDisposable
       @addToggle()
-      atom.notifications.addInfo(@pluginName + ' deactivated')
+      if notify
+          atom.notifications.addInfo(@pluginName + ' deactivated')
 
   activate: (state) ->
-    console.log "start ", @pluginName
     @subscriptions = new CompositeDisposable
     @addToggle()
 
     atom.config.onDidChange @activateEntry, () =>
       @setActive atom.config.get @activateEntry
 
-    @setActive true
+    @setActive (atom.config.get @activateEntry), false
 
   deactivate: ->
     @subscriptions.dispose()
@@ -50,7 +50,6 @@ module.exports =
 
   addToggle: ->
     @subscriptions.add atom.commands.add 'atom-workspace', 'reverse-scroll-wheel:toggle': =>
-      console.log "toggle from ", @active
       @setActive(!@active)
 
   addReverseScrollWheel: ->
