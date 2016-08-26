@@ -20,7 +20,7 @@ module.exports =
           type: 'boolean'
           default: true
 
-  setActive: (active) =>
+  setActive: (active) ->
     @active = active
     console.log "Activating ", @pluginName, " to ", @active
     if active
@@ -34,13 +34,12 @@ module.exports =
       atom.notifications.addInfo(@pluginName + ' deactivated')
 
   activate: (state) ->
-
     console.log "start ", @pluginName
     @subscriptions = new CompositeDisposable
     @addToggle()
 
     atom.config.onDidChange @activateEntry, () =>
-        @setActive atom.config.get @activateEntry
+      @setActive atom.config.get @activateEntry
 
     @setActive true
 
@@ -49,21 +48,10 @@ module.exports =
 
   serialize: ->
 
-  toggle: ->
-    # @active = !@active
-    @setActive(!@active)
-    # if @active
-    #     @addReverseScrollWheel()
-    #     atom.notifications.addInfo(@pluginName + ' activated')
-    # else
-    #     @removeReverseScrollWheel()
-    #     @subscriptions.dispose()
-    #     @subscriptions = new CompositeDisposable
-    #     @addToggle()
-    #     atom.notifications.addInfo(@pluginName + ' deactivated')
-
   addToggle: ->
-    @subscriptions.add atom.commands.add 'atom-workspace', 'reverse-scroll-wheel:toggle': => @toggle()
+    @subscriptions.add atom.commands.add 'atom-workspace', 'reverse-scroll-wheel:toggle': =>
+      console.log "toggle from ", @active
+      @setActive(!@active)
 
   addReverseScrollWheel: ->
     @subscriptions.add atom.workspace.observeTextEditors (editor) ->
