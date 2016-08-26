@@ -18,7 +18,7 @@
   "dependencies": {
     "atom-space-pen-views": "^2.0.3"
   },
-  "readme": "# Atom package: reverse-scroll-wheel\n\nBasic reversing scroll wheel functionality for editors.\n\nThe purpose of this package is to fix broken functionality of mouse scroll wheel on some Linux systems (probably due to broken chrome engine, see Issue 582547).\nOf course you may want to use it just because you can.\n\n**Note**: Unfortunately it works only for editors, not for tree-view, settings etc.\n",
+  "readme": "# Atom package: reverse-scroll-wheel\n\nBasic reversing scroll wheel functionality.\n\nThe purpose of this package is to fix broken functionality of mouse scroll wheel on some Linux systems (probably due to broken chrome engine, see Issue 582547).\nOf course you may want to use it just because you can.\n\n**Note**: It works for editors and tree view only! Other kind of panels are not handled.\n",
   "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/dktn/reverse-scroll-wheel/issues"

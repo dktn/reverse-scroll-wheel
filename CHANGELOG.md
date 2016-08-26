@@ -1,3 +1,6 @@
+## 0.3.0
+* Reversing scroll wheel for Tree View
+
 ## 0.2.0
 * Saving plugin state
 * Activate setting
